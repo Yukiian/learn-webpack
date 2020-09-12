@@ -10,13 +10,22 @@ module.exports = {
         rules: [{
             test: /\.(jpg|png|gif)$/,
             use: {
-                loader:'url-loader',
-                options:{
-                    name:'[name]_[hash].[ext]',
-                    outputPath:'images/',
-                    limit:40960
+                loader: 'url-loader',
+                options: {
+                    name: '[name]_[hash].[ext]',
+                    outputPath: 'images/',
+                    limit: 40960
                 }
             }
+        }, {
+            test: /\.scss$/,
+            use: ['style-loader', {
+                loader: 'css-loader',
+                options: {
+                    importLoaders: 2,
+                    modules:true
+                }
+            }, 'sass-loader', 'postcss-loader']
         }]
     }
 }
