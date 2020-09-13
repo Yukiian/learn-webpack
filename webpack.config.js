@@ -4,6 +4,12 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 
 //plugin 在打包的节点上做一些操作，htmlwebpackplugin是在打包结束后加上html模版，clean是在打包之前
 module.exports = {
+    mode:'development', //production一般不开启devtool，如果要配置的话使用cheap-module-source-map
+    devtool:'cheap-module-eval-source-map',
+    devServer:{
+        contentBase:'./dist',
+        open:true //自动打开浏览器
+    },
     entry: {
         main:'./src/index.js',
         sub:'./src/index.js'
@@ -11,7 +17,7 @@ module.exports = {
     output: {
         filename: '[name].js', //占位符，打包输出多个入口时
         path: path.resolve(__dirname, 'dist'),
-        publicPath:"http://cdn.example.com" //配合cdn使用
+        // publicPath:"http://cdn.example.com" //配合cdn使用
     },
     module: {
         rules: [{
