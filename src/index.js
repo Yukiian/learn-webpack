@@ -1,9 +1,6 @@
-import avatar from './avatar.jpg'
-import style from './index.scss'
-import createAvatar from './createAvatar'
+import './index.scss';
 
-createAvatar()
-const img = new Image();
-img.src = avatar;
-img.classList.add(style.avatar)
-document.querySelector('#root').append(img)
+var root = document.getElementById('root')
+import './index.scss'
+
+root.innerHTML='<div class="iconfont icon-hufushuangbeifen3"></div>'
