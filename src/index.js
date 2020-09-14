@@ -1,3 +1,7 @@
-import './index.scss';
+import random from './console'
 
-console.log('12343')
+if(module.hot){
+    module.hot.accept('./console.js',function(){
+        random()
+    })
+}
