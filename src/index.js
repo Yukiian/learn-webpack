@@ -1,7 +1,12 @@
-import random from './console'
+import "@babel/polyfill"
+import random from './console';
 
-if(module.hot){
-    module.hot.accept('./console.js',function(){
+const obj = {
+    name: 'tianyuqi'
+}
+
+if (module.hot) {
+    module.hot.accept('./console.js', function () {
         random()
     })
 }
