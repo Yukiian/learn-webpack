@@ -18,11 +18,6 @@ module.exports = {
     entry: {
         main: './src/index.js',
     },
-    output: {
-        filename: '[name].js', //占位符，打包输出多个入口时
-        path: path.resolve(__dirname, 'dist'),
-        // publicPath:"http://cdn.example.com" //配合cdn使用
-    },
     module: {
         rules: [{
             test: /\.js$/,
@@ -55,5 +50,13 @@ module.exports = {
     },
     plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin({
         template: 'src/index.html'
-    }), new webpack.HotModuleReplacementPlugin()]
+    }), new webpack.HotModuleReplacementPlugin()],
+    optimization: {
+        usedExports: true //devlopoment模式下配置tree-shaking 对没有使用到的模块中的方法不进行打包，只支持es6中import这种方法的导入
+    },
+    output: {
+        filename: '[name].js', //占位符，打包输出多个入口时
+        path: path.resolve(__dirname, 'dist'),
+        // publicPath:"http://cdn.example.com" //配合cdn使用
+    }
 }
