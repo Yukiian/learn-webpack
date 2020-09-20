@@ -39,6 +39,31 @@ module.exports = {
             }
         }]
     },
+    optimization: {
+        splitChunks: {
+            chunks: 'async', //代码分割时只对异步代码进行分割 -all 同步异步都会代码分割
+            minSize: 20000, //最小的大小，超过这个数值会帮你做代码分割
+            minRemainingSize: 0,
+            // maxSize: 0,//对代码进行二次分割
+            minChunks: 1, //当一个模块至少被用了多少次才做代码分割
+            maxAsyncRequests: 30,
+            maxInitialRequests: 30,
+            automaticNameDelimiter: '~', //连接符
+            enforceSizeThreshold: 50000,
+            cacheGroups: {
+                defaultVendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10, //对于都满足打包条件的库，到底应该放在那个哪个组里呢，根据priority来配置的，值越大优先级越高，
+                    filename: 'vendors.js'
+                }, //当遇到同步的代码时，webpack知道你要做代码分割，于是会走到cacheGroups中配置，当发现你的库时在nodemodule文件夹下时会统一打包到vendor文件下
+                default: {
+                    priority: -20,
+                    reuseExistingChunk: true, //如果一个模块在之前打包过了，不会再重新打包一次
+                    filename:'common.js'
+                } //不再nodemodule下的文件会走到这里来配置打包
+            }
+        }
+    },
     plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin({
         template: 'src/index.html'
     })],

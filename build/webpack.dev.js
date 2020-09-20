@@ -14,7 +14,7 @@ const devConfig = {
     },
     plugins: [new webpack.HotModuleReplacementPlugin()],
     optimization: {
-        usedExports: true //devlopoment模式下配置tree-shaking 对没有使用到的模块中的方法不进行打包，只支持es6中import这种方法的导入
+        usedExports: true, //devlopoment模式下配置tree-shaking 对没有使用到的模块中的方法不进行打包，只支持es6中import这种方法的导入
     }
 }
 
