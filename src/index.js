@@ -13,6 +13,7 @@
 
 import React, { Component } from "react";
 import ReactDom from 'react-dom'
+import console from './console'
 
 class App extends Component {
   render() {

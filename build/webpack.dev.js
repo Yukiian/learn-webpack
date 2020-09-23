@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const { merge } = require('webpack-merge')
 const commonConfig = require('./webpack.common.js')
+const path = require('path')
 
 //plugin 在打包的节点上做一些操作，htmlwebpackplugin是在打包结束后加上html模版，clean是在打包之前
 const devConfig = {
@@ -13,8 +14,11 @@ const devConfig = {
         hotOnly: true //即使热更新不起作用也不重新打开浏览器
     },
     plugins: [new webpack.HotModuleReplacementPlugin()],
-    optimization: {
-        usedExports: true, //devlopoment模式下配置tree-shaking 对没有使用到的模块中的方法不进行打包，只支持es6中import这种方法的导入
+    output: {
+        filename: '[name].js', //占位符，打包输出多个入口时
+        chunkFilename: '[name].chunk.js', //间接引入的模块打包生成的文件名走这个
+        path: path.resolve(__dirname, '../dist'),
+        // publicPath:"http://cdn.example.com" //配合cdn使用
     }
 }
 
