@@ -16,7 +16,12 @@ module.exports = {
         rules: [{
             test: /\.js$/,
             exclude: /node_modules/,
-            loader: "babel-loader"
+            use:[{
+                loader:'babel-loader'
+            },{
+                loader:'imports-loader?this=>window' //当模块在CommonJS上下文中执行时，这个等于module.exports，this总是指向这个模块，想要让this指向window使用imports-loader
+            }],//遇到多个loader时，使用use
+            // loader: "babel-loader"
         }, {
             test: /\.(jpg|png|gif)$/,
             use: {
@@ -73,5 +78,8 @@ module.exports = {
     },
     plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin({
         template: 'src/index.html'
-    }), new MiniCssExtractPlugin()]
+    }), new MiniCssExtractPlugin(), new webpack.ProvidePlugin({
+        _: 'lodash',
+        // join: ['lodash', 'join'], //使用loadsh下的join方法
+    })] //shimming垫片，通过使用webpack提供的插件providePlugin将你在业务代码中用到的库自动import进入代码
 }
